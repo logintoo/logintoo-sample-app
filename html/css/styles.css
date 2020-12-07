@@ -1,0 +1,33 @@
+body {
+  background: #ECEFF1;
+  padding: 0;
+}
+
+.brand-logo img {
+  width: 100%;
+  max-height: 150px;
+  max-width: 500px;
+}
+
+#jwt-payload,
+#demo-api-response {
+  word-break: break-all;
+}
+
+.btn, .btn-large, .btn-small {
+  display: block;
+  margin-right: auto;
+  margin-left: auto;
+  width: 400px;
+  max-width: 96%;
+  background: #8e24aa;
+  background: -webkit-gradient(linear, left top, right top, from(#8e24aa), to(#ff6e40)) !important;
+  background: -o-linear-gradient(left, #8e24aa, #ff6e40) !important;
+  background: linear-gradient(90deg, #8e24aa, #ff6e40) !important;
+}
+.btn:hover, .btn-large:hover, .btn-small:hover {
+  background-color: #ff6e40;
+}
+.btn:focus, .btn-large:focus, .btn-small:focus, .btn-floating:focus {
+  background-color: #8e24aa;
+}

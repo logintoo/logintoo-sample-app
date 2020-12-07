@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta name="generator" content="Hugo 0.79.0" />
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="MobileOptimized" content="width" />
+  <meta name="HandheldFriendly" content="true" />
+
+  
+    <title>Logintoo Sample App</title>
+  
+
+  <link rel="canonical" href="https://sample.logintoo.com/" />
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/favicon/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon/favicon-16x16.png">
+  <link rel="manifest" href="/favicon/site.webmanifest">
+  <link rel="mask-icon" href="/favicon/safari-pinned-tab.svg" color="#5bbad5">
+  <link rel="shortcut icon" href="/favicon/favicon.ico">
+  <meta name="msapplication-TileColor" content="#ffc40d">
+  <meta name="msapplication-config" content="/favicon/browserconfig.xml">
+  <meta name="theme-color" content="#ffffff">
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css" integrity="sha256-OweaP/Ic6rsV+lysfyS4h+LM6sRwuO3euTYfr6M124g=" crossorigin="anonymous" />
+
+  
+  
+
+  
+  
+  <link rel="stylesheet" href="/css/styles.css" />
+
+  <script defer src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
+  <script defer src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js" integrity="sha256-U/cHDMTIHCeMcvehBv1xQ052bPSbJtbuiw4QA9cTKz0=" crossorigin="anonymous"></script>
+
+  
+  
+  
+
+  
+  
+  <script defer src="/js/index.js"></script>
+</head>
+<body>
+
+  
+
+
+<header>
+  <div class="container">
+    <div class="brand-logo center-align section">
+      <img src="/img/logintoo-logo.svg" alt="Logintoo Sample App">
+      <p>
+        PASSWORDLESS AUTHENTICATION
+      </p>
+    </div>
+  </div>
+</header>
+
+<main>
+  <div class="container">
+    <div class="section">
+      <div class="row">
+        
+        <div id="signin-btn-container" style="display: none;">
+          <button id="signin-btn" type="submit" class="btn-large waves-effect waves-light hoverable">Log In</button>
+        </div>
+
+        <div id="logged-in" class="card-panel center" style="display: none;">
+          
+          <div id="access-token-log" style="display: none;">
+            <p>Access and Refresh Tokens have been received and saved in the Local Storage.</p>
+          </div>
+        
+          
+          <div id="sample-api-container" style="display: none;">
+            <h4>You are logged in</h4>
+            <div id="sample-api-response"></div>
+          </div>
+
+          
+          <div id="spinner-container" class="preloader-wrapper active" style="display: none;">
+            <div class="spinner-layer spinner-blue">
+              <div class="circle-clipper left">
+                <div class="circle"></div>
+              </div>
+              <div class="gap-patch">
+                <div class="circle"></div>
+              </div>
+              <div class="circle-clipper right">
+                <div class="circle"></div>
+              </div>
+            </div>
+            
+            <div class="spinner-layer spinner-red">
+              <div class="circle-clipper left">
+                <div class="circle"></div>
+              </div>
+              <div class="gap-patch">
+                <div class="circle"></div>
+              </div>
+              <div class="circle-clipper right">
+                <div class="circle"></div>
+              </div>
+            </div>
+            
+            <div class="spinner-layer spinner-yellow">
+              <div class="circle-clipper left">
+                <div class="circle"></div>
+              </div>
+              <div class="gap-patch">
+                <div class="circle"></div>
+              </div>
+              <div class="circle-clipper right">
+                <div class="circle"></div>
+              </div>
+            </div>
+              
+            <div class="spinner-layer spinner-green">
+              <div class="circle-clipper left">
+                <div class="circle"></div>
+              </div>
+              <div class="gap-patch">
+                <div class="circle"></div>
+              </div>
+              <div class="circle-clipper right">
+                <div class="circle"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        
+        <div id="signout-btn-container" style="display: none;">
+          <button id="signout-btn" type="submit" class="btn-large waves-effect waves-light hoverable">Log Out</button>
+        </div>
+
+        
+        <noscript>
+          <div class="card-panel center">
+            <p>Your web browser must have <strong>JavaScript</strong> enabled in order for this application to display correctly.</p>
+          </div>
+        </noscript>
+        <div id="bad-browser" class="card-panel center" style="display: none;">
+          <p>This browser is not supported.</p>
+        </div>
+        <div id="error-4xx" class="card-panel center" style="display: none;">
+          <h4>API Error</h4>
+          <div id="error-details"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="row">
+        <p class="flow-text">
+          This is a sample application to demonstrate how the Logintoo passwordless authentication service works.
+        </p>
+        <p class="flow-text">
+          Log in with your email address. We will not save your address, it will only be used once to send you an access code. <em>Please do not use other people's emails.</em>
+        </p>
+        <p class="flow-text">
+          A one-time access code will be emailed to you. Use it to get access to the sample data. No password required.
+        </p>
+        <p class="flow-text">
+          When logged in, if you are lucky enough you should see the content of the JWT access token received from the Authorization Server.
+        </p>
+      </div>
+
+      
+
+    </div> 
+  </div>
+</main>
+
+<footer class="blue-grey-text text-lighten-2 center-align section">
+  <div class="container">
+    
+    &copy; 2020 Logintoo Sample App
+  </div>
+</footer>
+
+
+
+</body>
+</html>
