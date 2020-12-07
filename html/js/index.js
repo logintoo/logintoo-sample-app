@@ -151,7 +151,8 @@ async function getTokens(args) {
   $('#spinner-container').show();
   $('#logged-in').show();
 
-  const {code, refresh_token} = args;
+  const code = args.code;
+  const refresh_token = args.refreshToken;
   const code_verifier = sessionStorage.getItem(client_id + '-code_verifier');
   
   let data;
