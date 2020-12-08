@@ -4,11 +4,9 @@ The demo website: [sample.logintoo.com](https://sample.logintoo.com)
 
 This is a sample application to demonstrate how the Logintoo **passwordless authentication** service works.
 
-Log in with your email address. We will not save your address, it will only be used once to send you an access code. Please do not use other people's emails.
+The sample application redirects user to the Authorization Server, receives an Access Token and a Refresh Token, then uses the Access Token to retrieve information from the Sample API. The API validates and reads the content of the Access Token and just returns it back to the app.
 
-A **one-time access code** will be emailed to you. Use it to get access to the sample data. No password required.
-
-When logged in, if you are lucky enough you should see the content of the JWT access token received from the Authorization Server.
+The Sample App also refreshes the Access Token and rotates the Refresh Token.
 
 The **/html** folder contains the static website files. Customize parameters in **/html/js/index.js**:
 
@@ -18,6 +16,15 @@ The **/html** folder contains the static website files. Customize parameters in 
 - **authApiVersion**: Version of the Authorization Server API.
 - **appApiUri**: The application API endpoint .
 
-The **/aws-cdk** folder contains everything you need to deploy Sample App API into AWS infrastructure using [AWS Cloud Development Kit](https://aws.amazon.com/cdk/) (AWS CDK).
+The **/aws-cdk** folder contains everything you need to deploy Sample App API into AWS infrastructure using [AWS Cloud Development Kit](https://aws.amazon.com/cdk/) (AWS CDK). This stack describes a Sample API to be deployed in AWS API Gateway with an authorizer Lambda function.
+
+Customize parameters in **/aws-cdk/sample-api/lib/sample-api-stack.js**:
+
+- **tokenIssuer**: The expected 'iss' claim of the Access Token, identifies the principal that issued the JWT.
+- **tokenAud**: The 'aud' (audience) claim of the Access Token, the recipient that the JWT is intended for.
+- **apiDomain**: API domain name in case you want to use a custom domain name.
+- **certificateArn**: The AWS ARN of your Certificate in case you want to use a custom domain name (you can use an AWS domain name instead).
+
+You need an AWS account to deploy the API.
 
 *The static website utilizes [jQuery](https://jquery.com) and [Materialize](https://materializecss.com).*
