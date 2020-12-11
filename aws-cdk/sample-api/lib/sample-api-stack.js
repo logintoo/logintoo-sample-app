@@ -26,6 +26,12 @@ class SampleApiStack extends cdk.Stack {
   constructor(scope, id, props) {
     super(scope, id, props);
 
+    // Tag all resources.
+    const tags = setTags();
+    for (let tag of tags) {
+      cdk.Tags.of(this).add(tag.key, tag.value);
+    }
+
     const authorizerRolePolicy = new iam.Policy(this, 'authorizerRolePolicy', {
       statements: [
         new iam.PolicyStatement({
@@ -174,6 +180,33 @@ class SampleApiStack extends cdk.Stack {
     });
 
   }
+}
+
+function setTags() {
+  const KNOWN_AWS_ACCOUNTS = {
+    '<AWS_Account_No>': {ownerTag: '<Owner_Info>'}
+  };
+
+  const tags = [];
+
+  // Full path to the working directory.
+  const pwd = process.env.PWD;
+  if (pwd) {
+    tags.push({
+      key: 'Working Directory',
+      value: pwd
+    });
+  }
+
+  // Use the owner tag for known accounts or the OS username.
+  const awsAccount = process.env.CDK_DEFAULT_ACCOUNT;
+
+  tags.push({
+    key: 'Owner',
+    value: (KNOWN_AWS_ACCOUNTS[awsAccount]) ? KNOWN_AWS_ACCOUNTS[awsAccount].ownerTag : process.env.USER
+  });
+
+  return tags;
 }
 
 module.exports = { SampleApiStack }
