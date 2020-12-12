@@ -1,18 +1,10 @@
+/*!
+* Logintoo Sample App (https://sample.logintoo.com)
+* Copyright (c) 2020, Eduard Moskvin
+* BSD 3-Clause License (https://raw.githubusercontent.com/logintoo/logintoo-sample-app/main/LICENSE)
+*/
+
 'use strict';
-
-// Authorization Server parameters.
-const client_id = '';
-const redirect_uri = '';
-const authServer = '';
-const authApiVersion = '';
-
-// The application API endpoint that returns data to requests with valid Access Token.
-const appApiUri = '';
-
-const language = 'en';    // OPTIONAL. Two-character code, e.g. 'fr'
-const locale = 'en-CA';   // OPTIONAL. Locale name, e.g. 'fr-CA'
-
-const tokenEndpointUri = 'https://' + 'api.' + authServer + '/' + authApiVersion + '/token';
 
 $(async function() {
   // Initialize UI elements.
@@ -154,7 +146,7 @@ async function getTokens(args) {
   const code = args.code;
   const refresh_token = args.refreshToken;
   const code_verifier = sessionStorage.getItem(client_id + '-code_verifier');
-  
+
   let data;
   let method;
 
@@ -192,7 +184,7 @@ async function getTokens(args) {
       method: method,
       url: tokenEndpointUri,
       data: data
-    }
+    };
     responseToken = await getAPIdata(params);
   }
   catch(error) {

@@ -1,14 +1,5 @@
 'use strict';
-
-const tokenIssuer = 'example.com';
-const tokenAud = 'api.example.com';
-
-// If you want to use a custom domain name, set it to 'true' and specify the domain name and a certificate.
-// Otherwise set it to 'false'.
-const useCustomDomain = false;
-// API domain name and certificate Arn.
-const apiDomain = 'api.example.com';
-const certificateArn = 'arn:aws:acm:<region>:<account>:certificate/<ID>';
+const Config = require('./Config.js');
 
 const cdk = require('@aws-cdk/core');
 const lambda = require('@aws-cdk/aws-lambda');
@@ -65,19 +56,20 @@ class SampleApiStack extends cdk.Stack {
       timeout: cdk.Duration.seconds(3),
       role: authorizerRole,
       environment: {
-        TOKEN_ISS: tokenIssuer,
-        TOKEN_AUD: tokenAud
+        TOKEN_ISS: Config.TOKEN_ISS,
+        TOKEN_AUD: Config.TOKEN_AUD
       }
     });
 
     const apiParams = {
       description: 'Logintoo Sample App API.'
     };
-    if (useCustomDomain) {
+    if (Config.USE_CUSTOM_DOMAIN) {
       apiParams.domainName = {
-        certificate: Certificate.fromCertificateArn(this, 'certificate', certificateArn),
-        domainName: apiDomain,
-        endpointType: apigw.EndpointType.EDGE
+        certificate: Certificate.fromCertificateArn(this, 'certificate', Config.CERTIFICATE_ARN),
+        domainName: Config.API_DOMAIN_NAME,
+        endpointType: apigw.EndpointType.EDGE,
+        securityPolicy: apigw.SecurityPolicy.TLS_1_2
       };
     }
     const api = new apigw.RestApi(this, 'logintoo-sample-app', apiParams);
@@ -183,10 +175,6 @@ class SampleApiStack extends cdk.Stack {
 }
 
 function setTags() {
-  const KNOWN_AWS_ACCOUNTS = {
-    '<AWS_Account_No>': {ownerTag: '<Owner_Info>'}
-  };
-
   const tags = [];
 
   // Full path to the working directory.
@@ -203,7 +191,7 @@ function setTags() {
 
   tags.push({
     key: 'Owner',
-    value: (KNOWN_AWS_ACCOUNTS[awsAccount]) ? KNOWN_AWS_ACCOUNTS[awsAccount].ownerTag : process.env.USER
+    value: (Config.KNOWN_AWS_ACCOUNTS[awsAccount]) ? Config.KNOWN_AWS_ACCOUNTS[awsAccount].ownerTag : process.env.USER
   });
 
   return tags;

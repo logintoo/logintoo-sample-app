@@ -1,0 +1,13 @@
+// Authorization Server parameters.
+const client_id = '<ID>';
+const redirect_uri = 'https://example.com';
+const authServer = 'auth.example.net';
+const authApiVersion = '<Version>';
+
+// The application API endpoint that returns data to requests with valid Access Token.
+const appApiUri = 'https://api.example.com/token-data';
+
+const language = 'en';    // OPTIONAL. Two-character code, e.g. 'fr'
+const locale = 'en-CA';   // OPTIONAL. Locale name, e.g. 'fr-CA'
+
+const tokenEndpointUri = 'https://' + 'api.' + authServer + '/' + authApiVersion + '/token';

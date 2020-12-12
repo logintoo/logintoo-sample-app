@@ -1,0 +1,16 @@
+module.exports = {
+  KNOWN_AWS_ACCOUNTS: {
+    '000000000000': {ownerTag: 'Owner'}
+  },
+
+  // Expected iss (Issuer) and aud (Audience) claims of Access token (JWT).
+  TOKEN_ISS: 'example.com',
+  TOKEN_AUD: 'app.example.com',
+  
+  // If you want to use a custom domain name, set it to 'true' and specify the domain name and a certificate.
+  // Otherwise set it to 'false'.
+  USE_CUSTOM_DOMAIN: false,
+  // API domain name and certificate Arn.
+  API_DOMAIN_NAME: 'app.example.com',
+  CERTIFICATE_ARN: 'arn:aws:acm:<region>:<account>:certificate/<ID>'
+};
