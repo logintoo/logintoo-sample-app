@@ -8,23 +8,25 @@ The sample application redirects user to the Authorization Server, receives an A
 
 The Sample App also refreshes the Access Token and rotates the Refresh Token.
 
-The **/html** folder contains the static website files. Customize parameters in **/html/js/index.js**:
+The **/html** folder contains the static website files. 
+Copy **/html/js/config.js.example** to **/html/js/config.js** and customize parameters:
 
 - **client_id**: ID of your application registered on the Authorization Server.
-- **redirect_uri**: Redirection endpoint URI.
+- **redirect_uri**: Redirection endpoint URI. Must be registered on the Authorization Server.
 - **authServer**: Authorization Server domain name.
 - **authApiVersion**: Version of the Authorization Server API.
 - **appApiUri**: The application API endpoint .
 
 The **/aws-cdk** folder contains everything you need to deploy Sample App API into AWS infrastructure using [AWS Cloud Development Kit](https://aws.amazon.com/cdk/) (AWS CDK). This stack describes a Sample API to be deployed in AWS API Gateway with an authorizer Lambda function.
 
-Customize parameters in **/aws-cdk/sample-api/lib/sample-api-stack.js**:
+Copy **/aws-cdk/sample-api/lib/Config.js.example** to **/aws-cdk/sample-api/lib/Config.js** and customize parameters:
 
-- **tokenIssuer**: The expected 'iss' claim of the Access Token, identifies the principal that issued the JWT.
-- **tokenAud**: The 'aud' (audience) claim of the Access Token, the recipient that the JWT is intended for.
-- **apiDomain**: API domain name in case you want to use a custom domain name.
-- **certificateArn**: The AWS ARN of your Certificate in case you want to use a custom domain name (you can use an AWS domain name instead).
+- **KNOWN_AWS_ACCOUNTS**: Specify the AWS account ID and the text for the 'Owner' tag, e.g. your name.
+- **TOKEN_ISS**: The expected 'iss' claim of the Access Token, identifies the principal that issued the JWT.
+- **TOKEN_AUD**: The 'aud' (audience) claim of the Access Token, the recipient that the JWT is intended for.
+- **API_DOMAIN_NAME**: API domain name in case you want to use a custom domain name.
+- **CERTIFICATE_ARN**: The AWS ARN of your Certificate in case you want to use a custom domain name (you can use an AWS domain name instead).
 
-You need an AWS account to deploy the API.
+You need an [AWS](https://aws.amazon.com/) account to deploy the API.
 
 *The static website utilizes [jQuery](https://jquery.com) and [Materialize](https://materializecss.com).*
